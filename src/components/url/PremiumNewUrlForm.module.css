@@ -1,0 +1,81 @@
+.form {
+    display: grid;
+    grid-template-columns: 4fr auto;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 0px 15px 15px 0px;
+    border: 3px solid rgba(47,47,158,1);
+    background-color: white;
+    color: rgba(47,47,158,1);
+    font-size: 24px;
+    font-weight: bold;
+    height: 100%;
+}
+
+.btn:hover {
+    color: white;
+    cursor: pointer;
+    background-color: rgba(47,47,158,1);
+    
+}
+
+.long {
+    width: auto;
+    padding: 10px;
+    border: 3px solid rgba(47,47,158,1);
+    border-right: none;
+    font-size: 24px;
+    border-radius: 15px 0px 0px 0px;
+    width: fit-content;
+}
+.short {
+    padding: 10px;
+    border: 3px solid rgba(47,47,158,1);
+    border-right: none;
+    border-top: none;
+    font-size: 24px;
+    border-radius: 0px 0px 0px 15px;
+    width: 100%;
+}
+
+.btnwrapper {
+    grid-column: 2 / 2;
+    grid-row: 1 / span 2;
+}
+
+.link {
+    color: rgba(47,47,158,1);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link:visited {
+    color: rgba(47,47,158,1);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.bottomtext {
+    padding: 20px;
+    font-size: 24px;
+    color: rgba(47,47,158,1);
+}
+
+.shortUrl {
+    background-color: rgba(47,47,158,1);
+    color: white;
+    cursor: pointer;
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.copymsg {
+    font-size: 14px;
+    padding-top: 20px;
+}

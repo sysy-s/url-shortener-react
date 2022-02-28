@@ -1,0 +1,9 @@
+body {
+    font-family: sans-serif;
+    background-color: rgba(47,47,158,1);
+    background: linear-gradient(rgba(47,47,158,1) 0%, rgba(0,212,255,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100%;
+    margin: 0;
+}
