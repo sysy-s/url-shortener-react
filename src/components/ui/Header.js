@@ -1,9 +1,15 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
-import { removeToken } from '../user/Auth'
+import { removeToken } from "../user/Auth";
+import { useState } from "react";
 
 export default function Header(props) {
+  const [logged, setLogged] = useState(false);
 
+  function logout(event) {
+    removeToken();
+    setLogged(false);
+  }
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
@@ -21,18 +27,23 @@ export default function Header(props) {
         </div>
         <div className={styles.misc}>{props.children}</div>
         {/* only  renders when user is not logged in */}
-        {props.token == null &&
-        <div>
-          <Link to="/login">Login</Link>
-        </div>}
-        {props.token == null &&
-        <div>
-          <Link to="/register">Register</Link>
-        </div>}
-        {props.token != null &&
-        <div>
-          <Link to="/" onClick={removeToken}>Logout</Link>
-        </div>}
+        {!logged && (
+          <div>
+            <Link to="/login">Login</Link>
+          </div>
+        )}
+        {!logged && (
+          <div>
+            <Link to="/register">Register</Link>
+          </div>
+        )}
+        {logged && (
+          <div>
+            <Link to="/" onClick={logout}>
+              Logout
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

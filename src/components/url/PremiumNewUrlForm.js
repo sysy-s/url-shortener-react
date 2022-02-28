@@ -4,6 +4,7 @@ import { useRef } from "react";
 import axios from "axios";
 import { fetchToken } from "../user/Auth";
 import { useState } from "react";
+import { API } from "../../Api";
 
 export default function PremiumNewUrlForm() {
   const longRef = useRef();
@@ -33,9 +34,9 @@ export default function PremiumNewUrlForm() {
     };
 
     axios
-      .post("http://localhost:8000/premium", urlUpload, config)
+      .post(`${API}/premium`, urlUpload, config)
       .then((res) =>
-        setShortUrl("http://localhost:8000/".concat("", res.data.short))
+        setShortUrl(`${API}/${res.data.short}`)
       )
       .catch((err) => setMessage(err.response.data.detail));
   }

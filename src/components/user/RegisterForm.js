@@ -1,12 +1,15 @@
 import styles from "./RegsiterForm.module.css";
-import { useRef } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API } from "../../Api";
 
 export default function RegsiterForm() {
   const emailRef = useRef();
   const pass1Ref = useRef();
   const pass2Ref = useRef();
+  const nav = useNavigate();
+  const [message, setMessage] = useState("");
 
   function submit(event) {
     event.preventDefault();
@@ -21,10 +24,18 @@ export default function RegsiterForm() {
     };
 
     axios
-      .post("http://localhost:8000/register", user)
-      .then(() => (<Navigate to='/premium' />))
-      .catch((error) => console.log(error));
-    console.log(JSON.stringify(user));
+      .post(`${API}/register`, user)
+      .then(() => {
+        nav("/login");
+      })
+      .catch((err) => {
+        
+        if (err.response.status === 422) {
+          setMessage("Email invalid");
+        } else if (err.response.status === 409) {
+          setMessage(err.response.data.detail);
+        }
+      });
   }
 
   return (
@@ -33,6 +44,7 @@ export default function RegsiterForm() {
       <form className={styles.form}>
         <input
           type="email"
+          patern=".+@+.+\.+."
           id="email"
           className={styles.email}
           placeholder="Enter email"
@@ -64,6 +76,7 @@ export default function RegsiterForm() {
           Already have an account?
         </Link>
       </div>
+      {message && <div className={styles.message}>{message}</div>}
     </div>
   );
 }

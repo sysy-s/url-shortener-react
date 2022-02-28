@@ -56,3 +56,12 @@
 .linkwrapper {
     margin-top: 15px;
 }
+
+.message {
+    margin-top: 10px;
+    font-size: 24px;
+    color: #ff5100;
+    padding: 10px;
+    border: 3px solid #ff5100;
+    border-radius: 15px;
+}

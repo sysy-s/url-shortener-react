@@ -1,13 +1,14 @@
 import styles from "./LoginForm.module.css";
 import { useRef, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { setToken } from "./Auth";
+import { API } from "../../Api";
 
 export default function LoginForm() {
   const usernameRef = useRef();
   const passRef = useRef();
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [message, setMessage] = useState("");
 
   function submit(event) {
@@ -20,17 +21,14 @@ export default function LoginForm() {
     userData.append("password", enteredPass);
 
     axios
-      .post("http://localhost:8000/login", userData)
+      .post(`${API}/login`, userData)
       .then((res) => {
         const token = JSON.stringify(res.data);
         setToken(token);
-        console.log("success");
-        navigate("/premium");
+        nav("/premium");
       })
       .catch((err) =>
-        enteredPass === "" || enteredUsername === ""
-          ? setMessage("Empty field")
-          : setMessage(err.response.data.detail)
+        setMessage('Invalid data')
       );
   }
 
@@ -58,7 +56,12 @@ export default function LoginForm() {
           Login
         </button>
       </form>
-      <div className={styles.message}>{message}</div>
+      <div className={styles.linkwrapper}>
+        <Link to="/register" className={styles.link}>
+          Dont have an account yet?
+        </Link>
+      </div>
+      {message && <div className={styles.message}>{message}</div>}
     </div>
   );
 }

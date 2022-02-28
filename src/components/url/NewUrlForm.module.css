@@ -1,6 +1,6 @@
 .form {
     display: grid;
-    grid-template-columns: 4fr auto;
+    grid-template-columns: auto auto;
     justify-content: center;
     padding: 20px;
     margin-bottom: 10px;
@@ -64,8 +64,10 @@
 }
 
 .message {
+    margin-top: 10px;
     font-size: 24px;
     color: #ff5100;
-    font-weight: bolder;
-    padding-top: 20px;
+    padding: 10px;
+    border: 3px solid #ff5100;
+    border-radius: 15px;
 }

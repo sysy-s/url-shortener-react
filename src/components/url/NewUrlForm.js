@@ -2,6 +2,7 @@ import styles from "./NewUrlForm.module.css";
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import axios from "axios";
+import { API } from "../../Api";
 
 export default function NewUrlForm() {
   const longRef = useRef();
@@ -19,9 +20,9 @@ export default function NewUrlForm() {
     };
 
     axios
-      .post("http://localhost:8000/", urlUpload)
+      .post(`${API}/`, urlUpload)
       .then((res) =>
-        setShortUrl("http://localhost:8000/".concat("", res.data.short))
+        setShortUrl(`${API}/${res.data.short}`)
       )
       .catch((err) => setMessage(err.response.data.detail));
   }

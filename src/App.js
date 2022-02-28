@@ -4,14 +4,11 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Stats from "./pages/Stats";
 
-import { fetchToken, RequireToken } from "./components/user/Auth";
-
+import { RequireToken } from "./components/user/Auth";
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/layout/Layout";
 
 function App() {
   return (
-    <Layout token={fetchToken}>
       <Routes>
         <Route path="/" element={<Default />} />
         <Route
@@ -33,7 +30,6 @@ function App() {
           }
         />
       </Routes>
-    </Layout>
   );
 }
 
