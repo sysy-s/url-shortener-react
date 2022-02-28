@@ -8,6 +8,10 @@ export const fetchToken = () => {
   return localStorage.getItem("jwt-token");
 };
 
+export const removeToken = () => {
+  return localStorage.removeItem("jwt-token");
+};
+
 export function RequireToken({ children }) {
   const navigate = useNavigate();
   
@@ -20,3 +24,4 @@ export function RequireToken({ children }) {
 
   return children;
 }
+

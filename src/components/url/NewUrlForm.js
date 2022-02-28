@@ -21,10 +21,9 @@ export default function NewUrlForm() {
     axios
       .post("http://localhost:8000/", urlUpload)
       .then((res) =>
-        res.data.short
-          ? setShortUrl("http://localhost:8000/".concat("", res.data.short))
-          : setMessage(res.data.message)
-      );
+        setShortUrl("http://localhost:8000/".concat("", res.data.short))
+      )
+      .catch((err) => setMessage(err.response.data.detail));
   }
 
   function copyShortUrl(event) {
@@ -57,14 +56,15 @@ export default function NewUrlForm() {
         </Link>
       </div>
       {(message || shortUrl) && (
-        <div className={styles.bottomtext}>
+        <div className={styles.shortwrapper}>
+          {shortUrl && 
           <div className={styles.shortUrl} onClick={copyShortUrl}>
             {shortUrl}
-          </div>
+          </div>}
           {copyState && (
             <div className={styles.copymsg}>Copied to clipboard</div>
           )}
-          <div>{message}</div>
+          {message && <div className={styles.message}>{message}</div>}
         </div>
       )}
     </div>

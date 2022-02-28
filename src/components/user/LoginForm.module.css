@@ -38,3 +38,10 @@
     background-color: rgba(47,47,158,1);
     cursor: pointer;
 }
+
+.message {
+    font-size: 24px;
+    color: #ff5100;
+    font-weight: bolder;
+    padding-top: 20px;
+}

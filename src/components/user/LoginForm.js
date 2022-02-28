@@ -1,5 +1,5 @@
 import styles from "./LoginForm.module.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "./Auth";
@@ -8,11 +8,13 @@ export default function LoginForm() {
   const usernameRef = useRef();
   const passRef = useRef();
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   function submit(event) {
     event.preventDefault();
     const enteredUsername = usernameRef.current.value;
     const enteredPass = passRef.current.value;
+
     const userData = new FormData();
     userData.append("username", enteredUsername);
     userData.append("password", enteredPass);
@@ -22,10 +24,14 @@ export default function LoginForm() {
       .then((res) => {
         const token = JSON.stringify(res.data);
         setToken(token);
-        console.log('success');
-        navigate('/premium');
+        console.log("success");
+        navigate("/premium");
       })
-      .catch((error) => console.log(error));
+      .catch((err) =>
+        enteredPass === "" || enteredUsername === ""
+          ? setMessage("Empty field")
+          : setMessage(err.response.data.detail)
+      );
   }
 
   return (
@@ -37,7 +43,6 @@ export default function LoginForm() {
           id="username"
           className={styles.username}
           placeholder="Enter email"
-          // onChange={(e) => setUsername(e.target.value)}
           ref={usernameRef}
           required
         />
@@ -46,7 +51,6 @@ export default function LoginForm() {
           id="password1"
           className={styles.pass1}
           placeholder="Enter password"
-          // onChange={(e) => setPassword(e.target.value)}
           ref={passRef}
           required
         />
@@ -54,7 +58,7 @@ export default function LoginForm() {
           Login
         </button>
       </form>
-      <div className={styles.messages}></div>
+      <div className={styles.message}>{message}</div>
     </div>
   );
 }

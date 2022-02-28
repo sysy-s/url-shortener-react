@@ -43,9 +43,9 @@
     text-decoration: none;
 }
 
-.bottomtext {
+.shortwrapper {
     padding: 20px;
-    font-size: 24px;
+    font-size: 20px;
     color: rgba(47,47,158,1);
 }
 
@@ -60,5 +60,12 @@
 
 .copymsg {
     font-size: 14px;
+    padding-top: 20px;
+}
+
+.message {
+    font-size: 24px;
+    color: #ff5100;
+    font-weight: bolder;
     padding-top: 20px;
 }

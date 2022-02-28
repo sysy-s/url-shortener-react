@@ -1,7 +1,9 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
+import { removeToken } from '../user/Auth'
 
 export default function Header(props) {
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
@@ -11,19 +13,26 @@ export default function Header(props) {
         <div className={styles.default}>
           <Link to="/">Default</Link>
         </div>
-        <div className={styles.premium}>
+        <div>
           <Link to="/premium">Premium</Link>
         </div>
-        <div className={styles.stats}>
+        <div>
           <Link to="/stats">Stats</Link>
         </div>
         <div className={styles.misc}>{props.children}</div>
-        <div className={styles.login}>
+        {/* only  renders when user is not logged in */}
+        {props.token == null &&
+        <div>
           <Link to="/login">Login</Link>
-        </div>
-        <div className={styles.register}>
+        </div>}
+        {props.token == null &&
+        <div>
           <Link to="/register">Register</Link>
-        </div>
+        </div>}
+        {props.token != null &&
+        <div>
+          <Link to="/" onClick={removeToken}>Logout</Link>
+        </div>}
       </div>
     </div>
   );
