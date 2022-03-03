@@ -6,9 +6,15 @@ import Stats from "./pages/Stats";
 
 import { RequireToken } from "./components/user/Auth";
 import { Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+
+const AuthApi = React.createContext();
 
 function App() {
+  const [auth, setAuth] = useState();
+
   return (
+    <AuthApi.Provider value={{ auth, setAuth }}>
       <Routes>
         <Route path="/" element={<Default />} />
         <Route
@@ -30,6 +36,7 @@ function App() {
           }
         />
       </Routes>
+    </AuthApi.Provider>
   );
 }
 

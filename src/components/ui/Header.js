@@ -19,9 +19,7 @@ export default function Header(props) {
         <div className={styles.default}>
           <Link to="/">Default</Link>
         </div>
-        <div>
-          <Link to="/premium">Premium</Link>
-        </div>
+        <div>{props.type !== "auth" && <Link to="/premium">Premium</Link>}</div>
         <div>
           <Link to="/stats">Stats</Link>
         </div>
