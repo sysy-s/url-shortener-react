@@ -1,21 +1,25 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const DetailContext = createContext(false);
 
 export const DetailProvider = ({ children }) => {
-  const [detailIsOn, dispatch] = useReducer((detailIsOn, action) => {
+  const [details, setDetails] = useState("");
+  const [advancedDetails, setAdvancedDetails] = useState("");
+  const [detailState, dispatch] = useReducer((detailState, action) => {
     switch (action.type) {
-      case "more":
-        return { detailIsOn: true, details: action.payload };
+      case "show-timestamps":
+        setDetails(action.payload);
+        return { detailState: true, details: details.data, short: details.short };
       case "less":
-        return { detailIsOn: false, details: [] };
+        setDetails("");
+        return { detailState: false, details: details.data, short: details.short };
       default:
-        return detailIsOn;
+        return detailState;
     }
   }, false);
 
   return (
-    <DetailContext.Provider value={[detailIsOn, dispatch]}>
+    <DetailContext.Provider value={[detailState, dispatch]}>
       {children}
     </DetailContext.Provider>
   );

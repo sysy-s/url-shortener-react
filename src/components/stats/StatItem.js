@@ -1,5 +1,5 @@
 import styles from "./StatItem.module.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DetailContext } from "./Context";
 import { API } from "../../Api";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { fetchToken } from "../user/Auth";
 
 export default function StatItem(props) {
   const [detailIsOn, dispatch] = useContext(DetailContext);
-  const [details, setDetails] = useState("");
+  const [details, setDetails] = useContext(DetailContext);
   const token = JSON.parse(fetchToken());
 
   const config = {
@@ -18,9 +18,8 @@ export default function StatItem(props) {
     axios
       .get(`${API}/stats/${short}`, config)
       .then((res) => {
-        const details_from_api = res.data;
-        setDetails(details_from_api);
-        dispatch({ type: "more", payload: details });
+        setDetails(res.data);
+        dispatch({ type: "show-timestamps", payload: {data: res.data, short: short} });
       })
       .catch((err) => console.log(err));
   };
@@ -45,7 +44,7 @@ export default function StatItem(props) {
         <button
           className={styles.btn}
           onClick={() => {
-            getAllDetails(props.short);
+            getAllDetails(props.short)
           }}
         >
           Show more

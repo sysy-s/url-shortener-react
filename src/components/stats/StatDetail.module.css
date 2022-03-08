@@ -2,12 +2,57 @@
     display: grid;
     grid-template-columns: 2fr 7fr;
     font-size: 20px;
-    width: fit-content;
+    width: 90%;
     border-radius: 15px;
     box-shadow: 0px 0px 5px black;
 
     
-    background-color: black;
+    background-color: rgba(47,47,158,1);
     color: white;
     padding: 10px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.headers {
+    overflow: scroll;
+    scrollbar-width: 0;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    height: 7rem;
+}
+
+.headers::-webkit-scrollbar {
+    display: none;
+}
+
+.cookies {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    height: 3rem;
+}
+
+.time {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    height: 3rem;
+}
+
+.timeLabel, .cookiesLabel, .headersLabel {
+    padding: 10px;
+    margin: 5px;
+    border: 3px solid white;
+    font-size: 24px;
+    border-radius: 15px;
+    text-align: center;
 }

@@ -10,8 +10,30 @@
     float: left;
 }
 
-.detail {
-    position: sticky;
+.detailListWrapper {
+    position: fixed;
+    right: 0;
     top: 150px;
     height: 100vh;
+    width: 51%;
+    padding: 20px;
+    background-color: white;
+}
+
+.details {
+    height: 70%;
+    overflow: scroll;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+.details::-webkit-scrollbar {
+    display: none;
+}
+
+.advancedDetailsWrapper {
+    background-color: aqua;
+    height: 35vh;
+    margin-top: 10px;
+    display: grid;
 }

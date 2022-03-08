@@ -9,23 +9,9 @@ import { API } from "../../Api";
 import StatDetail from "./StatDetail";
 import { DetailContext } from "./Context";
 
-const dummyDetails = [
-  {
-    id: 45,
-    headers:
-      "Headers({'host': 'fastapi-url-shortener.herokuapp.com', 'connection': 'close', 'sec-ch-ua': '\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"98\", \"Opera\";v=\"84\"', 'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '\"Windows\"', 'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36 OPR/84.0.4316.21', 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'sec-fetch-site': 'none', 'sec-fetch-mode': 'navigate', 'sec-fetch-user': '?1', 'sec-fetch-dest': 'document', 'accept-encoding': 'gzip, deflate, br', 'accept-language': 'en-US,en;q=0.9', 'x-request-id': 'e0fc27a1-fb2a-4023-8bbf-53e6dd3fa852', 'x-forwarded-for': '83.22.40.189', 'x-forwarded-proto': 'https', 'x-forwarded-port': '443', 'via': '1.1 vegur', 'connect-time': '0', 'x-request-start': '1646560006664', 'total-route-time': '0'})",
-    time: "2022-03-06T09:46:46.676581+00:00",
-    url_id: 46,
-    cookies: "{'PHPSESSID': 's667de9nbam3m6mtcbee9u3m79'}",
-  },
-];
-
 export default function StatList() {
   const [stats, getStats] = useState("");
-  const [detailIsOn, dispatch] = useContext(DetailContext);
-  const [details, setDetails] = useState(detailIsOn);
-  console.log(detailIsOn);
-  console.log(detailIsOn.details);
+  const [details, setDetails] = useContext(DetailContext);
   const token = JSON.parse(fetchToken());
 
   const config = {
@@ -47,39 +33,43 @@ export default function StatList() {
   }, []);
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.stats}>
-        {stats &&
-          stats.map((stat) => (
-            <Block className={styles.item} key={stat.id}>
-              <StatItem
-                short={stat.short}
-                long={stat.long}
-                created={stat.created}
-                last_clicked={stat.last_clicked}
-                click_count={stat.click_count}
-              />
-            </Block>
-          ))}
-        {!stats && (
-          <Block className={styles.item}>
-            <h1>Looks like you dont own any URLs</h1>
-          </Block>
-        )}
-      </div>
-      <div className={styles.detail}>
-        <Block>
-          {!detailIsOn && <h1>Details will appear here</h1>}
-          {detailIsOn &&
-            dummyDetails.map((detail) => (
-                  <StatDetail
-                    small={true}
-                    time={detail.time}
-                    key={detail.id}
-                  />
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.stats}>
+          {stats &&
+            stats.map((stat) => (
+              <Block className={styles.item} key={stat.id}>
+                <StatItem
+                  short={stat.short}
+                  long={stat.long}
+                  created={stat.created}
+                  last_clicked={stat.last_clicked}
+                  click_count={stat.click_count}
+                />
+              </Block>
             ))}
-        </Block>
+          {!stats && (
+            <Block className={styles.item}>
+              <h1>Looks like you dont own any URLs</h1>
+            </Block>
+          )}
+        </div>
       </div>
-    </div>
+      <div className={styles.detailListWrapper}>
+        <h1>URL visits for {details.short}</h1>
+        <div className={styles.details}>
+          {details.details &&
+            details.details.map((detail) => (
+              <StatDetail
+                small={true}
+                time={detail.time}
+                cookies={detail.cookies}
+                headers={detail.headers}
+                key={detail.id}
+              />
+            ))}
+        </div>
+      </div>
+    </>
   );
 }
