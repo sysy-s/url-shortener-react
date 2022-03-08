@@ -1,15 +1,18 @@
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { removeToken } from "../user/Auth";
-import { useState } from "react";
+import { AuthContext } from "../user/Auth";
+import { useContext } from "react";
 
 export default function Header(props) {
-  const [logged, setLogged] = useState(false);
-
-  function logout(event) {
+  const [logged, dispatch] = useContext(AuthContext);
+  
+  const logout = () => {
     removeToken();
-    setLogged(false);
+    dispatch({type: 'logout'});
+    window.location.reload(false);
   }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
@@ -36,7 +39,7 @@ export default function Header(props) {
           </div>
         )}
         {logged && (
-          <div>
+          <div className={styles.logout}>
             <Link to="/" onClick={logout}>
               Logout
             </Link>

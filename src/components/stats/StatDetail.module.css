@@ -1,0 +1,13 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 2fr 7fr;
+    font-size: 20px;
+    width: fit-content;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px black;
+
+    
+    background-color: black;
+    color: white;
+    padding: 10px;
+}

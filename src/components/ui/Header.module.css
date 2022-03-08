@@ -7,8 +7,10 @@
     text-align: center;
     align-content: center;
     position: sticky;
+    overflow: hidden;
     top: 0;
     box-shadow: 0px 0px 15px rgb(0, 0, 0, 0.2);
+    z-index: 100;
 }
 
 .wrapper div {
@@ -28,10 +30,14 @@
 }
 
 .misc {
-    background-color: rgba(47,47,158,1);
+    background-color: white;
 }
 
 .register, .login {
     text-align: right;
     padding-right: 40px;
+}
+
+.logout {
+    grid-column: 6;
 }

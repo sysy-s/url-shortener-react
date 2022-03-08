@@ -1,15 +1,21 @@
 import styles from "./LoginForm.module.css";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { setToken } from "./Auth";
+import { removeToken, setToken } from "./Auth";
 import { API } from "../../Api";
+import { AuthContext } from "./Auth";
 
 export default function LoginForm() {
+  const [logged, dispatch] = useContext(AuthContext);
   const usernameRef = useRef();
   const passRef = useRef();
   const nav = useNavigate();
   const [message, setMessage] = useState("");
+
+  const login = () => {
+    dispatch({type: 'login'});
+  }
 
   function submit(event) {
     event.preventDefault();
@@ -25,11 +31,11 @@ export default function LoginForm() {
       .then((res) => {
         const token = JSON.stringify(res.data);
         setToken(token);
+        login();
+        setTimeout(() => removeToken(), 30*60*1000); // removes token after 30 minutes bc it expires anyways
         nav("/premium");
       })
-      .catch((err) =>
-        setMessage('Invalid data')
-      );
+      .catch(() => setMessage("Invalid data"));
   }
 
   return (
